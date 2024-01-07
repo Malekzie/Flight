@@ -13,7 +13,9 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "@lucia-auth/adapter-prisma": "^3.0.2",
     "@playwright/test": "^1.28.1",
+    "@prisma/client": "^5.7.1",
     "@skeletonlabs/skeleton": "2.7.0",
     "@skeletonlabs/tw-plugin": "0.3.1",
     "@sveltejs/adapter-auto": "^3.0.0",
@@ -28,6 +30,7 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.30.0",
+    "lucia": "^2.7.6",
     "postcss": "8.4.33",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
