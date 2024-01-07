@@ -6,7 +6,7 @@ import { Prisma } from '@prisma/client';
 // Checks whether user is logged in
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
-	if (session) throw redirect(302, "/member");
+	if (session) throw redirect(302, "/member/login");
 	return {};
 };
 
