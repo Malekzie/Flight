@@ -3,14 +3,16 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from "./$types";
 import { Prisma } from '@prisma/client';
 
+// Checks whether user is logged in
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
-	if (session) throw redirect(302, "/");
+	if (session) throw redirect(302, "/member");
 	return {};
 };
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
+		// Destructuring username and password from form data to only get those
 		const { username, password} = Object.fromEntries(
 			await request.formData(),
 		) as Record<string, string>;
@@ -44,8 +46,7 @@ export const actions: Actions = {
 			locals.auth.setSession(session); // set session cookie
             if (session) console.log("session exists");
 		} catch (e) {
-			// this part depends on the database you're using
-			// check for unique constraint error in user table
+			// Checks for prisma error
 			if (e instanceof Prisma.PrismaClientKnownRequestError) {
 				if (e.code === 'P2002') {
 					return fail(400, {
@@ -55,7 +56,6 @@ export const actions: Actions = {
 			}
 			// redirect to
 			// make sure you don't throw inside a try/catch block!
-			console.log(formData);
 			throw redirect(302, '/member/login');
 		}
 	}
